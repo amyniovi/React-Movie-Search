@@ -34,13 +34,10 @@ class App extends Component {
       error: (xhr, status, err) => {
         console.error("failed")
       }
-    }
-    )
-
+    })
   }
 
   updateSearch(e) {
-
     this.search(e.target.value);
   }
 
@@ -76,10 +73,7 @@ class App extends Component {
 
       </div>
     );
-
-
   }
-
 }
 
 export default App;
