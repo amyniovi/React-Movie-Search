@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../logo.svg';
+import '../App.css';
 import MovieRow from './movieRow.js'
 import $ from 'jquery'
 
@@ -9,7 +9,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: []
+      rows: [], 
+      user:{}
     }
 
     this.search("a")
@@ -41,9 +42,9 @@ class App extends Component {
     this.search(e.target.value);
   }
 
+  
   render() {
-
-    return (
+        return (
       <div >
         <table className="titleBar">
           <tbody>
@@ -72,8 +73,15 @@ class App extends Component {
         {this.state.rows}
 
       </div>
-    );
-  }
+    );  
+
+    }
+
+
+
 }
 
 export default App;
+
+
+
