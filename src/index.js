@@ -21,23 +21,57 @@ var authorized = true;
 //an array of properties and returns a Route Component 
 //which has a render method that returns JSX .
 
+// var authorizeMe = (...params) => {
+//  console.log("AUTHORIZEME ....:");
+//   console.log("component"+{...params}.component);
+//   console.log("path  "+ {...params}.path);
 
-var PrivateRoute = ({component: Component, ...props }) => (
-    <Route
+//   //  console.log(" Component in authorizeMe"+Component);
+
+//  return (  
+//     //   authorized === true ?
+//     // <Component {...params} />
+//     // :
+//      <Redirect to="/login" />
+//  )
+
+// }
+
+var PrivateRoute = (
+    {
+        component: Component,
+        ...props
+    }
+) => {
+    console.log("path: " + { ...props }.path);// /home
+    console.log("component : " + { ...props }.component);// undefined
+    console.log("Component : " + Component);//homepage
+
+    return (<Route
         {...props}
+        render={(params) => {
+            console.log("AUTHORIZEME ....:");
+            console.log( params);
+            console.log({...params}.location.pathname);
+            console.log("component " + params.component);
+            console.log(" Component in authorizeMe" + Component);
 
-        render={
-            (...params) =>
 
-            authorized === true ?
+            return (
+                authorized === true ?
                 <Component {...params} />
-                : <Redirect to="/login" />
+                : <Redirect to={{
+
+                    pathname:"/login",
+                    state :{ from:{...params}.location.pathname}
+                }}
+                />
+            )
+        }
         }
     />
-)
-
-
-
+    )
+}
 
 ReactDOM.render(
     <BrowserRouter>

@@ -100,7 +100,7 @@
             }
         ],
         "prettier/prettier": [
-            "error",
+            "warning",
             {
                 "trailingComma": "es6",
                 "singleQuote": true,
