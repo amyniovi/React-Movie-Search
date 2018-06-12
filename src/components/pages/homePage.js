@@ -13,7 +13,7 @@ class HomePage extends Component {
       user:{}
     }
 
-    this.search("a")
+    this.search("a")    
     this.updateSearch = this.updateSearch.bind(this);
   }
 

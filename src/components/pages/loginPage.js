@@ -1,31 +1,40 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-class LoginPage extends Component {
+  export const fakeAuth = {
+    authorized : false, 
+    authenticate(cb){
+        this.authorized =true;
+        setTimeout(cb,100);
+    }
+
+  }
+
+export class LoginPage extends Component {
 
     state = {
         redirectToReferrer: false
     }
 
-    fakeAuthenticate() {
-        return true;
-    }
 
     login() {
-        console.log(this.fakeAuthenticate());
-        var authenticated = this.fakeAuthenticate();
-        this.setState({ redirectToReferrer: authenticated });
+        console.log("inside login: " + fakeAuth.authorized);
+       // var authenticated = fakeAuthenticate();
+       fakeAuth.authenticate(()=>{
+        this.setState({ redirectToReferrer: fakeAuth.authorized});
+       });
+        
     }
 
     render() {
         const {from} = this.props.location.state || {from:{pathname:"/"}}
-  
+  //debugger;
             if(this.state.redirectToReferrer===true)
             {
-             debugger; 
+            // debugger; 
             console.log(from);
 
-            return <Redirect to={from}/>;
+            return <Redirect to={from} />;
             }
             
             return(
@@ -40,4 +49,4 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage;
+ 

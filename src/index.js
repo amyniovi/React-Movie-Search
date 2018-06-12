@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
 import './index.css';
-import App from './components/App.js';
+//import App from './components/App.js';
 import registerServiceWorker from './registerServiceWorker';
 import HomePage from './components/pages/homePage';
-import LoginPage from './components/pages/loginPage';
+import {LoginPage} from './components/pages/loginPage';
+import {fakeAuth} from './components/pages/loginPage'
 
 const Public = () =>
     (<div>
@@ -16,7 +17,7 @@ const Public = () =>
         </ul>
     </div>);
 
-var authorized = true;
+
 //PrivateRoute is a component (specifically a Route) so it takes in a component and 
 //an array of properties and returns a Route Component 
 //which has a render method that returns JSX .
@@ -29,7 +30,7 @@ var authorized = true;
 //   //  console.log(" Component in authorizeMe"+Component);
 
 //  return (  
-//     //   authorized === true ?
+//     //   fakeAuth === true ?
 //     // <Component {...params} />
 //     // :
 //      <Redirect to="/login" />
@@ -43,22 +44,22 @@ var PrivateRoute = (
         ...props
     }
 ) => {
-    console.log("path: " + { ...props }.path);// /home
-    console.log("component : " + { ...props }.component);// undefined
-    console.log("Component : " + Component);//homepage
+    // console.log("path: " + { ...props }.path);// /home
+    // console.log("component : " + { ...props }.component);// undefined
+    // console.log("Component : " + Component);//homepage
 
     return (<Route
         {...props}
         render={(params) => {
-            console.log("AUTHORIZEME ....:");
-            console.log( params);
-            console.log({...params}.location.pathname);
-            console.log("component " + params.component);
-            console.log(" Component in authorizeMe" + Component);
+            // console.log("AUTHORIZEME ....:");
+            // console.log( params);
+            // console.log({...params}.location.pathname);
+            // console.log("component " + params.component);
+            // console.log(" Component in authorizeMe" + Component);
 
-
+            console.log(fakeAuth.authorized);
             return (
-                authorized === true ?
+               fakeAuth.authorized === true ?
                 <Component {...params} />
                 : <Redirect to={{
 
