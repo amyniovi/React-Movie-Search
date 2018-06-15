@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from '../../images/logo.svg';
 import './homePage.css';
-import MovieRow from '../common/movieRow.js'
+import MovieRow from '../common/movieRow.js';
+import {authGreeting as AuthGreeting}  from './loginPage';
 import $ from 'jquery'
 
 class HomePage extends Component {
@@ -46,6 +47,7 @@ class HomePage extends Component {
   render() {
         return (
       <div >
+        <AuthGreeting/>
         <table className="titleBar">
           <tbody>
             <tr>
