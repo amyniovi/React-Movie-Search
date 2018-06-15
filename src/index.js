@@ -5,8 +5,8 @@ import './index.css';
 //import App from './components/App.js';
 import registerServiceWorker from './registerServiceWorker';
 import HomePage from './components/pages/homePage';
-import {LoginPage} from './components/pages/loginPage';
-import {fakeAuth} from './components/pages/loginPage'
+import { LoginPage } from './components/pages/loginPage';
+import { fakeAuth } from './components/pages/loginPage';
 
 const Public = () =>
     (<div>
@@ -59,14 +59,14 @@ var PrivateRoute = (
 
             console.log(fakeAuth.authorized);
             return (
-               fakeAuth.authorized === true ?
-                <Component {...params} />
-                : <Redirect to={{
+                fakeAuth.authorized === true ?
+                    <Component {...params} />
+                    : <Redirect to={{
 
-                    pathname:"/login",
-                    state :{ from:{...params}.location.pathname}
-                }}
-                />
+                        pathname: "/login",
+                        state: { from: { ...params }.location.pathname }
+                    }}
+                    />
             )
         }
         }

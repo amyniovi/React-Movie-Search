@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from '../../images/logo.svg';
 import './homePage.css';
 import MovieRow from '../common/movieRow.js';
-import {authGreeting as AuthGreeting}  from './loginPage';
+import { authGreeting as AuthGreeting } from './loginPage';
 import $ from 'jquery'
 
 class HomePage extends Component {
@@ -10,11 +10,11 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: [], 
-      user:{}
+      rows: [],
+      user: {}
     }
 
-    this.search("a")    
+    this.search("a")
     this.updateSearch = this.updateSearch.bind(this);
   }
 
@@ -43,11 +43,11 @@ class HomePage extends Component {
     this.search(e.target.value);
   }
 
-  
+
   render() {
-        return (
+    return (
       <div >
-        <AuthGreeting/>
+        <AuthGreeting />
         <table className="titleBar">
           <tbody>
             <tr>
@@ -75,9 +75,9 @@ class HomePage extends Component {
         {this.state.rows}
 
       </div>
-    );  
+    );
 
-    }
+  }
 
 
 
