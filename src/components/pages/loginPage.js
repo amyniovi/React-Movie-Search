@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
+import './loginPage.css';
+
+
 
 export const fakeAuth = {
     authorized: false,
@@ -52,15 +55,19 @@ export class LoginPage extends Component {
         }
 
         return (
-            <div>
-                <div><input type="text" defaultValue="Enter your username" /></div>
-                <div><input type="text" defaultValue="Enter your password" /></div>
-                <div><button onClick={this.login.bind(this)} >Log In</button> </div>
-
+            <div className="login-box">
+           <div> <h1>Login:</h1></div>
+          
+                <div className="textbox">
+                <i class="fa fa-user" aria-hidden="true "></i>
+                <input type="text" defaultValue="Enter your username" />
+                </div>
+                <div className="textbox">
+                <i class="fa fa-lock" aria-hidden="true "></i>
+                <input type="password" defaultValue="Enter your password" /></div>
+                <div ><button className="btn" onClick={this.login.bind(this)} >Log In</button> </div>
             </div>
-
         );
-
     }
 }
 

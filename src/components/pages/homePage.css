@@ -1,10 +1,15 @@
-.titleBar{
-  background-color:#333;
+/* .titleBar{
+  background-color:none;
   display:'block';
-  color:#fff;
-  padding-left:10px;
+  color:#444;
+  padding-left:5px;
+  text-align: center;
+ 
+  
+} */
+.Search{
+  display:inline-block;
 }
-
 .App {
   text-align: center;
 }
