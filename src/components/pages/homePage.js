@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../../images/logo.svg';
-  import './homePage.css';
+import './homePage.css';
 import MovieRow from '../common/movieRow.js';
 import { authGreeting as AuthGreeting } from './loginPage';
 import $ from 'jquery'
@@ -21,6 +21,7 @@ class HomePage extends Component {
   search(search) {
     const urlStr = `https://api.themoviedb.org/3/search/movie?api_key=5e51b3d3d888bc3f1cfd2ccab3235bb2&query=${search}&page=1`
     var movieRows = []
+    
     $.ajax({
       url: urlStr,
       success: result => {
@@ -36,6 +37,7 @@ class HomePage extends Component {
       error: (xhr, status, err) => {
         console.error("failed")
       }
+
     })
   }
 
@@ -43,12 +45,10 @@ class HomePage extends Component {
     this.search(e.target.value);
   }
 
-
   render() {
     return (
       <div >
       <div>  <AuthGreeting /></div>
-       
        
       <div > 
        <img border="none" width="30" height="30" src="green-app-logo.png" />
@@ -69,11 +69,7 @@ class HomePage extends Component {
 
       </div>
     );
-
   }
-
-
-
 }
 
 export default HomePage;
