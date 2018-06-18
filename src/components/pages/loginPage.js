@@ -17,9 +17,18 @@ export class LoginProvider extends Component{
             setTimeout(cb, 100);
         };
         
+        this.signOut = (cb)=>{
+            this.setState(state=>(
+                {
+                    authorized:false
+                }));
+            setTimeout(cb,100);
+        };
+
         this.state = {
             authorized: false,
-            authenticate: this.authenticate
+            authenticate: this.authenticate,
+            signOut:this.signOut
         }
     }
 
@@ -32,37 +41,39 @@ export class LoginProvider extends Component{
        </LoginContext.Provider>
         )
     }
-
-
 }
 
  
 
 export const authGreeting = withRouter(({ history }) => {
-
-
+return(
 <div>
+
+
+
 <LoginContext.Consumer>
-    {(context) => {
-
     
-    return(
-
-    context.state.authorized === true ?
+    {(context) => {
+ 
+  return   context.state.authorized === true ?
         <p>Welcome Amy <button onClick={() => {
-          //  fakeAuth.signOut(history.push('/'));
+           context.state.signOut(history.push('/'));
         }}>Sign Out</button></p>
         :
         <p>You have to login to view this page.</p>
-    )}}
-    </LoginContext.Consumer>
+    }}
+
+
+ </LoginContext.Consumer>
+
+
+
+
     </div>
+);
 });
 
 export class LoginPage extends Component {
-
-
-  
 
     render() {
 
