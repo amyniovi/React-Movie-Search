@@ -6,7 +6,9 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import HomePage from './components/pages/homePage';
 import { LoginPage } from './components/pages/loginPage';
-import { fakeAuth } from './components/pages/loginPage';
+//import { fakeAuth } from './components/pages/loginPage';
+import { LoginProvider } from './components/pages/loginPage';
+import { LoginContext } from './components/pages/loginPage';
 
 const Public = () =>
     (<div>
@@ -57,31 +59,44 @@ var PrivateRoute = (
             // console.log("component " + params.component);
             // console.log(" Component in authorizeMe" + Component);
 
-            console.log(fakeAuth.authorized);
-            return (
-                fakeAuth.authorized === true ?
-                    <Component {...params} />
-                    : <Redirect to={{
 
-                        pathname: "/login",
-                        state: { from: { ...params }.location.pathname }
-                    }}
-                    />
-            )
+            return <div>
+                    <LoginContext.Consumer>
+                        {(context) => {
+
+                        
+                        return context.state.authorized  === true ?
+                        <Component {...params} />
+                     : <Redirect to={{
+                     
+                         pathname: "/login",
+                         state: { from: { ...params }.location.pathname }
+                     }}
+                     />
+                    }
+                    }
+                </LoginContext.Consumer>
+            </div>
+
+
         }
         }
     />
     )
 }
 
+
+
 ReactDOM.render(
-    <BrowserRouter>
-        <Switch>
-            <Route exact path='/' component={Public} />
-            <Route path='/login' component={LoginPage} />
-            <PrivateRoute path='/home' component={HomePage} />
-        </Switch>
-    </BrowserRouter>,
+    <LoginProvider>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path='/' component={Public} />
+                <Route path='/login' component={LoginPage} />
+                <PrivateRoute path='/home' component={HomePage} />
+            </Switch>
+        </BrowserRouter>
+    </LoginProvider>,
     document.getElementById('root')
 );
 

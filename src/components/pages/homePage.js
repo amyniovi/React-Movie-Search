@@ -47,10 +47,10 @@ class HomePage extends Component {
   render() {
     return (
       <div >
-      <div>  <AuthGreeting /></div>
+     
        
        
-      <div className="Search"> 
+      <div > 
        <img border="none" width="30" height="30" src="green-app-logo.png" />
        <input 
           onChange={this.updateSearch}

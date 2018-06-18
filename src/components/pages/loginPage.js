@@ -2,72 +2,109 @@ import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import './loginPage.css';
 
+//create a context
+export const LoginContext = React.createContext();
 
+//create a Context Provider.
+export class LoginProvider extends Component{
 
-export const fakeAuth = {
-    authorized: false,
-    authenticate(cb) {
-        this.authorized = true;
-        setTimeout(cb, 100);
-    },
-    signOut(cb) {
-        this.authorized = false;
-        setTimeout(cb, 100);
+    constructor() {
+        super();
+        this.authenticate = (cb) => {
+            this.setState(state => ({
+                authorized:true
+            }));
+            setTimeout(cb, 100);
+        };
+        
+        this.state = {
+            authorized: false,
+            authenticate: this.authenticate
+        }
     }
 
-}
-export const authGreeting = withRouter(({ history }) => (
+    render(){
+        return(
+        <LoginContext.Provider value={{
+            state:this.state
+        }}>
+            {this.props.children}
+       </LoginContext.Provider>
+        )
+    }
 
-    fakeAuth.authorized === true ?
+
+}
+
+ 
+
+export const authGreeting = withRouter(({ history }) => {
+
+
+<div>
+<LoginContext.Consumer>
+    {(context) => {
+
+    
+    return(
+
+    context.state.authorized === true ?
         <p>Welcome Amy <button onClick={() => {
-            fakeAuth.signOut(history.push('/'));
+          //  fakeAuth.signOut(history.push('/'));
         }}>Sign Out</button></p>
         :
         <p>You have to login to view this page.</p>
-
-));
-
+    )}}
+    </LoginContext.Consumer>
+    </div>
+});
 
 export class LoginPage extends Component {
 
-    state = {
-        redirectToReferrer: false
-    }
 
-
-    login() {
-        console.log("inside login: " + fakeAuth.authorized);
-        // var authenticated = fakeAuthenticate();
-        fakeAuth.authenticate(() => {
-            this.setState({ redirectToReferrer: fakeAuth.authorized });
-        });
-
-    }
+  
 
     render() {
-        const { from } = this.props.location.state || { from: { pathname: "/" } }
-        //debugger;
-        if (this.state.redirectToReferrer === true) {
-            // debugger; 
-            console.log(from);
 
-            return <Redirect to={from} />;
+        function authorize(context) {
+            debugger;
+            context.state.authorized = true;
         }
 
         return (
-            <div className="login-box">
-           <div> <h1>Login:</h1></div>
-          
-                <div className="textbox">
-                <i class="fa fa-user" aria-hidden="true "></i>
-                <input type="text" defaultValue="Enter your username" />
-                </div>
-                <div className="textbox">
-                <i class="fa fa-lock" aria-hidden="true "></i>
-                <input type="password" defaultValue="Enter your password" /></div>
-                <div ><button className="btn" onClick={this.login.bind(this)} >Log In</button> </div>
-            </div>
+            
+        <div>
+        <LoginContext.Consumer>
+            {(context) => {
+                const { from } = this.props.location.state || { from: { pathname: "/" } };
+
+                if (context.state.authorized === true) {
+                    
+                    console.log(from);
+        
+                    return <Redirect to={from} />
+                } else {
+                   
+                    return (
+                    <div className="login-box">
+                    <div> <h1>Login:</h1></div>
+                   
+                         <div className="textbox">
+                         <i className="fa fa-user" aria-hidden="true "></i>
+                         <input type="text" defaultValue="Enter your username" />
+                         </div>
+                         <div className="textbox">
+                         <i className="fa fa-lock" aria-hidden="true "></i>
+                         <input type="password" defaultValue="Enter your password" /></div>
+                         <div ><button className="btn" onClick={() => context.state.authenticate(()=>{})}>Log In</button> </div>
+                     </div>);
+                }
+            }
+        }
+        </LoginContext.Consumer>
+        </div>
         );
+      
     }
 }
 
