@@ -14,7 +14,7 @@ export class LoginProvider extends Component {
             this.setState(state => ({
                 authorized: true
             }));
-            localStorage.setItem('authorized','true');
+            sessionStorage.setItem('authorized','true');
             setTimeout(cb, 100);
         };
 
@@ -23,13 +23,13 @@ export class LoginProvider extends Component {
                 {
                     authorized: false
                 }));
-                localStorage.setItem('authorized', 'false');
+                sessionStorage.setItem('authorized', 'false');
 
             setTimeout(cb, 100);
         };
 
         this.state = {
-            authorized: JSON.parse(localStorage.getItem('authorized'))  || false,
+            authorized: JSON.parse(sessionStorage.getItem('authorized'))  || false,
             authenticate: this.authenticate,
             signOut: this.signOut
         }
