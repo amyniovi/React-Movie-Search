@@ -14,7 +14,9 @@ export class LoginProvider extends Component {
             this.setState(state => ({
                 authorized: true
             }));
-            sessionStorage.setItem('authorized','true');
+            // sessionStorage.setItem('authorized',this.state.authorized);
+            this.setCookie('authorized', true, 7);
+            console.log(this.state.authorized);
             setTimeout(cb, 100);
         };
 
@@ -23,18 +25,28 @@ export class LoginProvider extends Component {
                 {
                     authorized: false
                 }));
-                sessionStorage.setItem('authorized', 'false');
-
+            //     sessionStorage.setItem('authorized', this.state.authorized);
+            this.setCookie('authorized', false, 1/(24*60*60*1000));
             setTimeout(cb, 100);
         };
-
+       
         this.state = {
-            authorized: JSON.parse(sessionStorage.getItem('authorized'))  || false,
+            authorized: document.cookie && document.cookie.split('=')[0]==='authorized'? JSON.parse(document.cookie.split('=')[1]) : false,//if only one cookie present, we d have to extract our cookie in real life app.
+            // JSON.parse(sessionStorage.getItem('authorized'))  || false,
             authenticate: this.authenticate,
             signOut: this.signOut
         }
     }
 
+    setCookie(name, value, exdays){
+
+        var d = new Date();
+        d.setTime(d.getTime() + exdays*24*60*60*1000);
+        debugger;
+        console.log(`${name}=${value}; expires=${d.toUTCString()}; path=/`);
+        document.cookie= `${name}=${value}; expires=${d.toUTCString()}; path=/`;
+    }
+   
     render() {
         return (
             <LoginContext.Provider value={{
